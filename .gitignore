@@ -27,16 +27,6 @@
 *.glo
 *.tcbtemp
 
-# Image directories (exclude all files inside)
-**/images/**
-**/images-01/**
-**/graphics/**
 
-# Exclude ALL pdf files
-*.pdf
-
-# Include pdf files in image and graphics directories
-!**/images/**/*.pdf
-!**/graphics/**/*.pdf
 
 
