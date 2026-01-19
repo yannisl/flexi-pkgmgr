@@ -1,0 +1,11 @@
+
+
+\NeedsTeXFormat{LaTeX2e}[2020/02/02]
+\ProvidesExplPackage{phd-math}{20/11/2023}{version1}{easy math setup (YL)}
+\clist_new:N \math_packages_clist
+\clist_set:Nn\math_packages_clist
+  {amsmath,amssymb,amsthm,amsopn,amscd,mathtools,xfrac,nicefrac,braket,stackrel,empheq}
+\clist_map_inline:Nn\math_packages_clist{\RequirePackage{#1}}
+\setcounter{MaxMatrixCols}{20}
+\newcommand*\widefbox[1]{\fbox{\hspace{1em}#1\hspace{1em}}}
+\ExplSyntaxOff

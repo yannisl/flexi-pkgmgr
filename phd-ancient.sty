@@ -1,0 +1,22 @@
+
+
+\NeedsTeXFormat{LaTeX2e}[2020/02/02]
+\ProvidesExplPackage{phd-ancient}{20/11/2023}{version1}{Core packages ancient (YL)}
+\ExplSyntaxOn
+\cs_gset:Npn \MakePrivateLetters
+  {
+    \char_set_catcode_letter:N \@
+    \char_set_catcode_letter:N \_
+    \char_set_catcode_letter:N \:
+  }
+\RequirePackage{staves}
+\LoadPackageAll{uncial}
+\LoadPackageAll{lineara}
+\LoadPackageAll{linearb}
+\LoadPackageAll{cypriot}
+\LoadPackageAll{sarabian}
+\LoadPackageAll{oldprsn}
+\RequirePackage{hieroglf}
+\RequirePackage{ugarite}
+\RequirePackage{epiolmec}
+\ExplSyntaxOff

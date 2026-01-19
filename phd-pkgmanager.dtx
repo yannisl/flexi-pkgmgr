@@ -1,0 +1,1024 @@
+% \iffalse meta-comment
+%<*internal>
+\iffalse
+%</internal>
+%<*readme>
+----------------------------------------------------------------
+phd-pkgmanager --- a package to shorten preambles
+E-mail: yannislaz@gmail.com
+Released under the LaTeX Project Public License v1.3c or later
+See http://www.latex-project.org/lppl.txt
+----------------------------------------------------------------
+This file provides the file package phd-pkgmanager.dtx.
+%</readme>
+%<*readmemd>
+# The `phd` LaTeX2e package
+
+The `phd-pkgmanager` latex package is part of the `phd` budle and the class 
+with the same name provide
+convenient methods to create new styles for books, reports
+and articles. It package loads a suite of commonly used packages 
+and resolves conflicts. 
+
+This work consists of the file  `phd-pkgmanager.dtx`,
+and the derived files   `phd-pkgmanager.ins`  
+                        `phd-pkgmanager.pdf` 
+                        `phd-pkgmanager.sty`.
+                        phd-fonts
+
+## Installation
+
+run the script `phd-lua`
+
+           phd-lua phd-pkgmanager.dtx on windows
+
+If you have any difficulties with the package come and join us at
+http://tex.stackexchange.com and post a new question or
+add a comment at http://tex.stackexchange.com/a/45023/963.
+or send me a message at  yannislaz at gmail.com
+
+## Documentation
+
+The package was written using the `doc` and `docscript` packages,
+so that it is self documented in a literary programming style. 
+The .pdf is a fat document, providing over fifty book styles (the
+equivalent of classes) plus there is a lot of write-up on the inner
+workings of TeX and LaTeX2e. However, you don't need to know much
+to use it.
+
+      \usepackage{phd}
+      \input{style13}
+
+All choices, are made via an extended key-value interface. 
+Although not a compliment, it resembles CSS and the keys are a bit verbose but
+attributes are easy to change and have a consistent and easy to remember interface.
+
+To set or add a key we only use one command:
+
+      \cxset{chapter name font-size: Huge,
+             chapter number font-size: HUGE} 
+
+## Future Development
+
+This is still an experimental version, but I will retain the
+interface in future releases. There is a large amount of
+work still to be carried out to improve the template styles
+provided, to test it more thoroughly and to add a number of
+improvements in the special designs. At present I estimate
+that I have completed about 90% of the work that needs
+to be done.
+
+The package as it stands is production stable. 
+
+
+%</readmemd>
+%
+%<*TODO>
+1. Write final tests against a symbols document.
+2. Improve on documentation.
+3. Compatibility with KOMAscript and checks against other classes.
+%</TODO>
+%<*internal>
+\fi
+\def\nameofplainTeX{plain}
+\ifx\fmtname\nameofplainTeX\else
+  \expandafter\begingroup
+\fi
+%</internal>
+%<*install>
+\input l3docstrip.tex
+\keepsilent
+\askforoverwritefalse
+\preamble
+----------------------------------------------------------------
+phd-pkgmanager --- a package to shorten preambles
+E-mail: yannislaz@gmail.com
+Released under the LaTeX Project Public License v1.3c or later
+See http://www.latex-project.org/lppl.txt
+----------------------------------------------------------------
+\endpreamble
+
+%\BaseDirectory{C:/users/admin/my documents/github/phd}
+%\usedir{MWE}
+\generate{\file{\jobname.sty}{\from{\jobname.dtx}{package}}}
+%
+%</install>
+%
+%<install>\endbatchfile
+%<*internal>
+%\usedir{tex/latex/phd}
+\generate{
+  \file{\jobname.ins}{\from{\jobname.dtx}{install}}
+}
+\nopreamble\nopostamble
+
+\generate{
+	\file{README.txt}{\from{\jobname.dtx}{readme}}
+  }
+
+\generate{
+	\file{\jobname.sty}{\from{\jobname.dtx}{package}}
+  }
+\generate{
+	\file{phd-fonts.sty}{\from{\jobname.dtx}{fonts}}
+  }
+ \generate{
+	\file{phd-essential.sty}{\from{\jobname.dtx}{essential}}
+  }
+ \generate{
+	\file{phd-tikz.sty}{\from{\jobname.dtx}{tikz}}
+  } 
+ \generate{
+	\file{phd-chemistry.sty}{\from{\jobname.dtx}{chemistry}}
+ }
+ \generate{\file{phd-physics.sty}{\from{\jobname.dtx}{physics}}}
+ \generate{
+	\file{phd-ancient.sty}{\from{\jobname.dtx}{ancient}}
+ } 
+ \generate{
+	\file{phd-typography.sty}{\from{\jobname.dtx}{typography}}
+ } 
+ \generate{
+	\file{phd-math.sty}{\from{\jobname.dtx}{math}}
+ }
+ \generate{
+	\file{phd-programming.sty}{\from{\jobname.dtx}{programming}}
+ }
+%\generate{
+%  \file{\jobname.md}{\from{\jobname.dtx}{readmemd}}
+%}
+\generate{
+  \file{\jobname-todo.tex}{\from{\jobname.dtx}{TODO}}
+}
+
+\ifx\fmtname\nameofplainTeX
+  \expandafter\endbatchfile
+\else
+  \expandafter\endgroup
+\fi
+%</internal>
+%<*driver>
+\documentclass[oneside,11pt,a4paper,nomessages,full,nocolorize,class=article]{l4doc}
+\usepackage[margin=2.5cm]{geometry} %showfrme to see
+\savegeometry{std}
+%\usepackage{phd}
+\usepackage[main=english]{babel}
+\usepackage{phd-documentation}  
+%\usepackage{fgruler}
+%\usepackage[essential,typography,thesis,ancient=true,tikz,math,exclude={booktabs,phd-lorems},physics]{phd-pkgmanager}
+\usepackage[essential,typography,math,tikz,programming]{phd-pkgmanager}
+% LOADED BY CLASSES
+%\sethyperref
+%\usepackage{biblatex}
+\RequirePackage[backend=biber, style=archaeologie]{biblatex}
+\addbibresource{phd1.bib}%  Syntax requires the .extension bib
+\cxset{palette bbc}
+\CodelineIndex
+%\PageIndex
+\makeindex
+\EnableCrossrefs
+\usepackage{fontspec}
+ \setmainfont{Charis SIL}[%
+   Scale             = 1.05,
+   Ligatures         = {NoRare},%
+   SmallCapsFeatures = {RawFeature=+c2sc},%
+   Renderer          = Node,%
+   Numbers           = Lining,%
+   %RawFeature={fallback=panunicode},
+  ]
+  % inconsolata for Linux
+  %\setmonofont[Scale=1.07]{Inconsolata}
+  \setmonofont{JetBrains Mono}
+  \renewcommand\baselinestretch{1.3}
+
+%\usepackage{panunicode}
+\newfontfamily\arial{Arial}
+\newfontfamily\panunicode{Arial Unicode MS}
+\let\arial\Arial
+%\usepackage{cayley}
+\usepackage{phd-frontmatter}
+\ExplSyntaxOn
+\let\BreakableUnderscore\c_underscore_str
+\ExplSyntaxOff
+\AtBeginDocument{
+\DeleteShortVerb\"
+\MakeShortVerb\|
+}
+\usepackage{fancyvrb}
+\begin{document}
+%\selectcolormodel{gray}
+%\frontmatter
+\cxset{doc title = Package Manager,
+       % try also feast-of-bacchus
+       % try also sebastian
+       % try also background.pdf
+       doc title =Package Manager, %IMPORTANT
+       document.title  =phd-pkgmanager package,
+       secondpage.title=phd-pkgmanager package,
+       }
+\cxset{coverpage.image=roots.jpg,
+          coverpage.title =The  phd-pkgmanager Package,  
+          coverpage.subtitle =LaTeX Document Processing,
+          coverpage.publisher = Camel Press,
+}
+\coverpage{}{}{}{}{}
+\secondpage
+
+\tableofcontents
+%\mainmatter
+\pagenumbering{arabic}
+%\input{ecosystem}
+\DocInput{\jobname.dtx}
+{
+ \parskip12pt
+ \printbibliography
+}
+%\PrintIndex
+\end{document}
+%
+% 
+%</driver>
+% \fi
+% 
+%
+% \DoNotIndex{\@,\@@par,\@beginparpenalty,\@empty}
+% \DoNotIndex{\@flushglue,\@gobble,\@input}
+% \DoNotIndex{\@makefnmark,\@makeother,\@maketitle}
+% \DoNotIndex{\@namedef,\@ne,\@spaces,\@tempa}
+% \DoNotIndex{\@tempb,\@tempswafalse,\@tempswatrue}
+% \DoNotIndex{\@thanks,\@thefnmark,\@topnum}
+% \DoNotIndex{\@@,\@elt,\@forloop,\@fortmp,\@gtempa,\@totalleftmargin}
+% \DoNotIndex{\",\/,\@ifundefined,\@nil,\@verbatim,\@vobeyspaces}
+% \DoNotIndex{\|,\~,\ ,\active,\advance,\aftergroup,\begingroup,\bgroup}
+% \DoNotIndex{\mathcal,\csname,\def,\documentstyle,\dospecials,\edef}
+% \DoNotIndex{\egroup}
+% \DoNotIndex{\else,\endcsname,\endgroup,\endinput,\endtrivlist}
+% \DoNotIndex{\expandafter,\fi,\fnsymbol,\futurelet,\gdef,\global}
+% \DoNotIndex{\hbox,\hss,\if,\if@inlabel,\if@tempswa,\if@twocolumn}
+% \DoNotIndex{\ifcase}
+% \DoNotIndex{\ifcat,\iffalse,\ifx,\ignorespaces,\index,\input,\item}
+% \DoNotIndex{\jobname,\kern,\leavevmode,\leftskip,\let,\llap,\lower}
+% \DoNotIndex{\m@ne,\next,\newpage,\nobreak,\noexpand,\nonfrenchspacing}
+% \DoNotIndex{\obeylines,\or,\protect,\raggedleft,\rightskip,\rm,\sc}
+% \DoNotIndex{\setbox,\setcounter,\small,\space,\string,\strut}
+% \DoNotIndex{\strutbox}
+% \DoNotIndex{\thefootnote,\thispagestyle,\topmargin,\trivlist,\tt}
+% \DoNotIndex{\twocolumn,\typeout,\vss,\vtop,\xdef,\z@}
+% \DoNotIndex{\,,\@bsphack,\@esphack,\@noligs,\@vobeyspaces,\@xverbatim}
+% \DoNotIndex{\`,\catcode,\end,\escapechar,\frenchspacing,\glossary}
+% \DoNotIndex{\hangindent,\hfil,\hfill,\hskip,\hspace,\ht,\it,\langle}
+% \DoNotIndex{\leaders,\long,\makelabel,\marginpar,\markboth,\mathcode}
+% \DoNotIndex{\mathsurround,\mbox,\newcount,\newdimen,\newskip}
+% \DoNotIndex{\nopagebreak}
+% \DoNotIndex{\parfillskip,\parindent,\parskip,\penalty,\raise,\rangle}
+% \DoNotIndex{\section,\setlength,\TeX,\topsep,\underline,\unskip,\verb}
+% \DoNotIndex{\vskip,\vspace,\widetilde,\\,\%,\@date,\@defpar}
+% \DoNotIndex{\[,\{,\},\]}
+% \DoNotIndex{\count@,\ifnum,\loop,\today,\uppercase,\uccode}
+% \DoNotIndex{\baselineskip,\begin,\tw@}
+% \DoNotIndex{\a,\b,\c,\d,\e,\f,\g,\h,\i,\j,\k,\l,\m,\n,\o,\p,\q}
+% \DoNotIndex{\r,\s,\t,\u,\v,\w,\x,\y,\z,\A,\B,\C,\D,\E,\F,\G,\H}
+% \DoNotIndex{\I,\J,\K,\L,\M,\N,\O,\P,\Q,\R,\S,\T,\U,\V,\W,\X,\Y,\Z}
+% \DoNotIndex{\1,\2,\3,\4,\5,\6,\7,\8,\9,\0}
+% \DoNotIndex{\!,\#,\$,\&,\',\(,\),\+,\.,\:,\;,\<,\=,\>,\?,\_}
+% \DoNotIndex{\discretionary,\immediate,\makeatletter,\makeatother}
+% \DoNotIndex{\meaning,\newenvironment,\par,\relax,\renewenvironment}
+% \DoNotIndex{\repeat,\scriptsize,\selectfont,\the,\undefined}
+% \DoNotIndex{\arabic,\do,\makeindex,\null,\number,\show,\write,\@ehc}
+% \DoNotIndex{\@author,\@ehc,\@ifstar,\@sanitize,\@title,\everypar}
+% \DoNotIndex{\if@minipage,\if@restonecol,\ifeof,\ifmmode}
+% \DoNotIndex{\lccode,\newtoks,\onecolumn,\openin,\p@,\SelfDocumenting}
+% \DoNotIndex{\settowidth,\@resetonecoltrue,\@resetonecolfalse,\bf}
+% \DoNotIndex{\clearpage,\closein,\lowercase,\@inlabelfalse}
+% \DoNotIndex{\selectfont,\mathcode,\newmathalphabet,\rmdefault}
+% \DoNotIndex{\bfdefault}
+% \DoNotIndex{\RequirePackage,\mathinner,\mathrel,\ifstylefileexists,DeclareUTFcomposite}
+% \DoNotIndex{DeclareRobustCommand,\char}
+%  \CheckSum{0}
+%  \CharacterTable
+%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%   Digits        \0\1\2\3\4\5\6\7\8\9
+%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%   Dollar        \$     Percent       \%     Ampersand     \&
+%   Acute accent  \'     Left paren    \(     Right paren   \)
+%   Asterisk      \*     Plus          \+     Comma         \,
+%   Minus         \-     Point         \.     Solidus       \/
+%   Colon         \:     Semicolon     \;     Less than     \<
+%   Equals        \=     Greater than  \>     Question mark \?
+%   Commercial at \@     Left bracket  \[     Backslash     \\
+%   Right bracket \]     Circumflex    \^     Underscore    \_
+%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%   Right brace   \}     Tilde         \~}
+%
+%
+% \DoNotIndex{\newcommand,\newenvironment}
+% \GetFileInfo{phd.dtx}
+% 
+%  \def\fileversion{v1.0}          
+%  \def\filedate{2012/03/06}
+% \title{The \textsf{phd} package.
+% \thanks{This
+%        file (\texttt{phd.dtx}) has version number \fileversion, last revised
+%        \filedate.}
+% }
+% \author{Dr. Yiannis Lazarides \\ \url{yannislaz@gmail.com}}
+% \date{\filedate}
+%
+%
+% 
+% ^^A\maketitle
+% 
+%  
+%  
+   
+%  \newpage
+
+% \pagestyle{empty}
+%
+% \pagestyle{headings}
+% \raggedbottom
+%  ^^A\OnlyDescription
+%
+%  ^^A\StopEventually{\printindex}
+%
+% \CodelineNumbered
+% \pagestyle{headings}
+% \part{USER MANUAL}
+% \section{Documentation}
+% The purpose of this package is to assist in managing the loading of a
+% set of useful packages and minimize the preamble of a \LaTeX{} document.
+% I developed the package while witing a series of books.
+% \section{How to use the package}
+% \begin{phdverbatim}[gobble=1]
+%  \documentclass[book,11pt,oneside,openany]{phddocx}
+%  \usepackage[essential,math,math+,tikz]{phd-pkgmanager}
+% \end{phdverbatim}
+% 
+%\begin{phdverbatim}[gobble=1]
+%  \documentclass[book,10pt,oneside,openany]{phddocx}
+%  \usepackage[essential,math,math+,tikz]{phd-pkgmanager}
+%\end{phdverbatim}
+% Packages have been grouped into classes and loaded using the \meta{options}. The sets of packages are then loaded in correct order and in addition if there is a clash correct for the clash. 
+%\begin{phdverbatim}[gobble=1]
+%  \documentclass[book,10pt,oneside,openany]{phddocx}
+%  % Geometry settings
+%  \usepackage{geometry}
+%  % General packages settings
+%  \usepackage[essential,math,math+,tikz,biblatex,
+%     hyper,algos]{phd-pkgmanager}
+%  % fonts
+%  \addbibresource{jobname.bib}
+%  \hypersetup{...}
+%  \makeindex
+%  \begin{document}
+%   ...
+%  \end{document}
+%\end{phdverbatim}
+% It is also possible to use higher level settings, that would load recommended
+% packages based on \emph{topics}.
+%\begin{phdverbatim}[gobble=1]
+% \usepackage[topic=computing]{phd-pkgmanager}
+%\end{phdverbatim}
+% Some of the topics available are \opt{computing},\opt{latex} for notes or books on % LaTeX topics, \opt{mathematics}, \opt{science}, \opt{linguistics}.
+%
+% At this point is good to pause and discuss as to what the class should set. In my opinion the class is responsible to set the looks of the document, so the package manager does not provide any styling packages, such as enumitem etc. More about this later. 
+% \subsection{Options}
+% The package is made upof smaller packages, classifying the packages into the following categories:
+% essential, fonts, typography, math, ancient,programming,tikz,chemistry,miscellaneous. Each category loads one or more packages, with what I found over the years as reasonable package options and used by the monographs I published. 
+%
+% \begin{tabular}{l>{\ttfamily}ll}
+% \toprule
+% &package & category\\
+% \midrule
+%\inc&  array & core\\
+%\inc& longtable&core\\
+%\inc& threeparttable&core\\
+% \midrule
+% \multicolumn{2}{c}{\bfseries Figures related}\\
+% \midrule
+%\inc &graphicx      &core\\
+%\inc &wrapfig       &core\\
+% \inc&grfext        &core\\
+%\inc& rotating      &core\\
+% \midrule
+% \multicolumn{2}{c}{\bfseries Table related}\\
+% \midrule
+%\inc& booktabs      &core\\
+%\inc& tabularx      &core\\
+%\inc& array         &core\\
+%\inc& longtable     &core\\
+%\inc& multirow      &core\\
+%\inc& colortbl      &core\\
+%\inc& threeparttable&core\\
+%\inc& diagbox       &core\\
+% \multicolumn{2}{c}{\bfseries Text and general}\\
+%\inc& acronym       &core\\
+%\inc& pdfpages      &core\\
+%\inc& comment       &core\\
+%\inc& needspace     &core\\
+% \bottomrule
+% \end{tabular}
+%
+% The option \opt{math} loads a basic set for maths. The packages loaded depend on
+% the \opt{mathunicode} option. The \opt{extramath} loads a few extra packages that
+% are popular for arrays and theorems.
+%
+% \begin{optionstable}  
+% all & = & loads all packges\\
+% core& essential packages & loads essential packages\\
+% core& essential packages & \lorem\par \\
+% \end{optionstable}
+% \part{IMPLEMENTATION}
+% 
+%
+% \section{Implementation Strategy}
+%
+% The implementation is divided into parts. Perhaps cutting,
+% these parts into smaller packages might have been a better
+% choice, but as the aim of the package is to minimize
+% the loading of packages and let |phd| to handle
+% this, it made more sense to me, anyway to keep everything
+% together.
+% 	
+%
+% \begin{description}
+%
+%  \item[The Package Manager] This section is responsible 
+%       for pre-loading  packages, resolving conflicts and 
+%       providing all interfacing commands.
+%
+%  \item[The Sectioning Layouts Manager] This section manages 
+%       the design of complex layouts for sectioning commands.
+%
+%  \item [The Image Page Manager] This section manages the design of 
+%       pages that consist primarily of images and complex
+%		page layouts.
+%
+%  \item[Common Macros] We provide a number of predefined commands
+%		for macros that us and other people found useful.
+%
+%  \item[MWE] The package generates a large number
+%		of Minimum Working Examples that we use for testing. 
+%		Most of them can also used as examples for training 
+%		or self-study.
+%
+% \end{description}
+%
+% \section{Preliminaries}
+%
+% The basic requirement for the Package Manager is to load
+% an adequate number of packages to enable the typesetting
+% of a diverse number of large documents without requiring
+% additional packages to be loaded by typical groups of
+% authors. This has its advantages, but of course it does 
+% slow things down. A long term objective is to select
+% packages depending as an option on the type of document
+% being prepared.
+%
+%    \begin{macrocode}
+%<*package>
+%<@@=phd>
+%    \end{macrocode}
+%
+%    Standard file identification. We first announce the package 
+%	 and require that it be used with \LaTeX2e. 
+%
+%    \begin{macrocode}
+%</package>
+%<*package|essential|tikz|chemistry|ancient|typography|math|programming>
+\NeedsTeXFormat{LaTeX2e}[2020/02/02]
+%</package|essential|tikz|chemistry|ancient|typography|math|programming>
+%<*package>
+\ProvidesPackage{phd-pkgmanager}[2020/1/13 v1.0 less preamble (YL)]%
+\ExplSyntaxOn
+\cs_gset:Npn \MakePrivateLetters
+  {
+    \char_set_catcode_letter:N \@
+    \char_set_catcode_letter:N \_
+    \char_set_catcode_letter:N \:
+  }
+  \MakePrivateLetters
+\def\FIRE{Fire}
+%    \end{macrocode}
+% \section{Utilities}
+%
+% In order to keep track of all the packages and keys we require a
+% number of macros will be defined first.
+% 
+% Each of the packages used by this document is loaded conditionally.
+% However, it might be nice to know if we have a complete set.  So we
+% define |\ifcomplete| which starts true, but gets set to false if any
+% package is missing. Some code is necessary in order to manage 
+% the complexity.
+%
+% I am indebted to the source of \docFile{symbols.tex} for the ideas and structure of 
+% some of the macros, which mostly I converted to LaTeX{}3 syntax.
+%
+% There are a number of symbols (e.g., \cs{Square}) that are defined by      
+% multiple packages.  In order to typeset all the variants in this       
+% document, we have to give glyph a unique name.  
+% To do that, we define :
+%
+% \cs{savesymbol}\marg{XXX}, which renames a symbol from \cs{XXX} to \cs{origXXX}, and    
+% \cs{restore_symbol:}\marg{yyy}\marg{XXX}, which renames \cs{origXXX} back to \cs{XXX} and     
+% defines a new command, |\yyyXXX|, which corresponds to the most recently 
+% loaded version of |\XXX|.                                                
+%                                                                        
+% This implementation of |\cs{save_symbol:}| and |\cs{restore_symbol:}| was based on  
+% the |savesym| package, which started with |symbol.tex|'s old definitions   
+% of those macros and improved upon them.  However, |\renamerobustsymbol|  
+% and |\ifnotsavedsym| are from  the list of |symbols| documentation.                                
+%                                                                        
+% |\g_phd_packages_loaded_clist} {\marg{clist}|
+%    Holds a list of all packages loaded by the \pkg{phd} package.
+% \verb+\g_phd_packages_not_found:n}{\marg{clist}+ 
+%    Holds a list of all packages not found.
+
+%
+% These are really long names, but I want to follow the \LaTeX3 Teams' suggestions
+%  and recommendations.
+%
+% |save_symbol:|  \meta{symbol name} 
+%  An explorified version of |savesymbol|. In the old style the original
+%  command was set to relax, this caused errors and I set it to undefine. The
+%  joys of \TeX programming!!!!!
+%% typeset the first argument the macro names 
+%    \begin{macrocode}
+%\cs_new:Npn \save_symbol: #1
+%  {
+%    \cs_gset_eq:cc {orig#1} {#1} 
+%    \cs_undefine:c {#1}
+%  }
+%
+%    \end{macrocode}
+% \begin{docfunctions}{\test_also_underscore:Nnn}{\Arg{x},\Arg{y}}{a b some llong word to see what happens}
+%\par\vskip10pt
+%   Just testing, something is weird here.
+%   \end{docfunctions}
+
+% \begin{docfunctions}{\test_also_underscore:Nnn}{\Arg{x},\Arg{y}}{}
+%   \par\vskip10pt
+%   Just testing, something is weird here.
+%   \end{docfunctions}
+%
+% \begin{docfunctions}{\savesymbol}{\marg{symbol name}}{pkg}  
+%  An alias for |save_symbol:|.
+% \end{docfunctions}
+%    \begin{macrocode}
+\cs_set_eq:NN \savesymbol\save_symbol:   
+\ExplSyntaxOff
+%    \end{macrocode}
+% 
+% \cs{restore_symbol:} \marg{symbol prefix} \marg{symbol name} 
+
+% 	Restore a previously saved symbol, and rename the current one.
+%    \begin{macrocode}
+\ExplSyntaxOn
+\cs_new:Npn \restore_symbol: #1 #2
+  {
+    \cs_gset_eq:cc {#1#2} {#2}
+    \cs_gset_eq:cc {#2} {orig#2}
+ }
+\ExplSyntaxOff
+%    \end{macrocode}  
+% 
+ 
+% Rename a robust command.
+%    \begin{macrocode}
+\newcommand*{\renamerobustsymbol}[2]{%
+  \expandafter\let\expandafter\origrealcommand
+    \csname #2\space\endcsname
+    \expandafter\global\expandafter\let\csname#1#2\endcsname=\origrealcommand
+}
+%    \end{macrocode}
+% Test if a symbol is not saved.
+%    \begin{macrocode}
+\def\ifnotsavedsym@helper#1#2!{\expandafter\ifx\csname orig#2\endcsname\relax}
+\newcommand*{\ifnotsavedsym}[1]{%
+  \expandafter\ifnotsavedsym@helper\string#1!%
+}
+%    \end{macrocode}
+% 
+%    \begin{macrocode}
+
+\newif\ifcomplete
+%    \end{macrocode}
+%    
+%    
+% For debugging purposes we define a switch that enables us to toggle
+% on and off the loading of packages.
+% 
+%    \begin{macrocode}
+\ExplSyntaxOn
+\clist_new:N \g_phd_packages_loaded_clist:n 
+\clist_new:N \g_phd_packages_not_found:n 
+\newif\ifloadpackages
+\loadpackagestrue
+
+\newcommand{\missingpkgs}{}
+\newcommand{\foundpkgs}{}
+
+%    \end{macrocode}
+% \begin{docfunctions}{\ifstylefileexists}{\marg{true code}\marg{false code}}{}
+%   Checks if a  |.sty| file exists. 
+% \cs{ifstylefileexists} is just like \LaTeX{}e's \cs{IfFileExists}, except that it appends
+% |.sty| to its first argument.  |\ifstylefileexists| is the same as
+% |\ifstylefileexists*|, but it additionally adds its first argument to a list
+% (|\missingpkgs|) and marks the document as incomplete (with
+% |\completefalse|) if the |.sty| file doesn't exist.
+% \end{docfunctions}
+%
+
+%    \begin{macrocode}
+\NewDocumentCommand\ifstylefileexists {s m m m } {
+  \IfBooleanTF #1 
+    {\ifstylefileexists_star {#2}{#3}{#4} }
+    {\ifstylefileexists_aux {#2}{#3}{#4}} 
+}
+%    \end{macrocode}
+%
+% Next define the auxiliaries.
+%
+%    \begin{macrocode}
+\cs_new:Npn \ifstylefileexists_star #1 #2 #3 {
+\ifloadpackages
+\file_if_exist:nTF {#1} 
+  {  
+    \exp_after:w \ifx\csname ver@#1.sty\endcsname\relax
+            \PackageInfo{phd-pkgmanager}{package~#1~loaded.}
+    \else
+      \PackageInfo{phd-pkgmanager}{package~#1~already~loaded.}
+    \fi 
+     \clist_gput_right:Nn \g_phd_packages_loaded_clist:n {#1}
+     #2
+  } 
+  {
+    #3
+    \clist_gput_right:Nn \g_phd_packages_not_found:n {#1}
+    \PackageInfo{phd-pkgmanager}{package~#1~not~found.}
+  }
+\fi  
+}
+
+\cs_new:Npn \ifstylefileexists_aux #1 #2 #3 {
+
+\file_if_exist:nTF {#1.sty} 
+  {
+   
+		\if_meaning:w \ver@#1.sty\relax
+      
+       \clist_gput_right:Nn \g_phd_packages_loaded_clist:n {#1}
+      \PackageInfo{phd-pkgmanager}{package~#1~not~loaded.}
+        
+      \else:  
+      
+      \PackageInfo{phd-pkgmanager}{package~#1~already~loaded.}
+       #2
+     \fi:
+  } 
+  {
+   #3
+    \clist_gput_right:Nn \g_phd_packages_not_found:n {#1}
+    \PackageInfo{phd-pkgmanager}{package~#1~not~found.}
+  }
+
+}
+%    \end{macrocode}
+%
+%
+% \begin{docfunctions}{\LoadPackageAll}{\oarg{package options} \marg{package name}}{}
+%   Checks if a  |.sty| file exists. Loads it with all options for all engines and or
+%   bundles.
+% \end{docfunctions}
+%    \begin{macrocode}
+\NewDocumentCommand\LoadPackageAll { o m } {
+  \bool_if_exist:cTF{#2_bool}
+  {  }
+  {\bool_new:c {#2_bool}
+   \cs_new:cpn {#2_name} {\pkg{#2}}
+   \ifstylefileexists{#2}
+       {\bool_gset_true:c {#2_bool}
+         \IfValueTF
+           {\PassOptionsToPackage
+            \RequirePackage{#2}
+            }{\RequirePackage{#2}}
+       }
+       {error cannot be loaded
+        \bool_gset_false:c {#2_bool}
+       }
+  }
+}
+\ExplSyntaxOff
+%    \end{macrocode}
+%
+%To find out if a package has already been loaded, use
+% \cs{@ifpackageloaded}\marg{package}\marg{true}\marg{false}.
+%|\@ifpackagelater| To find out if a package has already been loaded with a version more recent
+%|\@ifclasslater| than version, use |\@ifpackagelater|\meta{hpackagei}\meta{version}\meta{true}\meta{false}.
+%|\@ifpackagewith| To find out if a package has already been loaded with at least the options
+%options, use |\@ifpackagewith|\meta{package}\meta{options}\meta{true}\meta{false}.
+% 
+%There exists one package that can't be tested with the above commands: the
+%fontenc package pretends that it was never loaded to allow for repeated reloading
+%with different options (see ltoutenc.dtx for details).
+%
+% \section{Utility macros for displaying symbols and fonts}
+%
+% In the sections that follow, we use a number of utilities for
+% displaying fonts and utilities in tables and figures, we collect
+% them here and make them available to the user for document
+% use. Many are modifications from other packages.
+%
+%    \begin{macrocode}
+% From stmarysrd symbols package
+% A very convenient command to typeset symbols.
+% Much preferable than tables. Slight modifications to
+% make it a bit more clear
+% CHECK END SYMBOLS
+\newcommand\Symbols{\flushleft}
+\def\endSymbols{\endflushleft}
+\def\dosymbol#1{%
+   \leavevmode\hbox to .33\textwidth{%
+    \hbox to 1.2em%
+    {\hss$#1$\hfil}%
+   \footnotesize\texttt{\string#1}\hss}%
+   \penalty10}
+%    \end{macrocode}
+% \section{Key Definitions}
+%    \begin{macrocode} 
+\ExplSyntaxOn
+\clist_set:Nn \l_tmpa_clist{all,essential,math,typography,programming,tikz,chemistry,physics}
+%    \end{macrocode}
+% The \cs{noload_clist} holds packages that should not be loaded. Is settable through the key-value interface nd is initially empty.
+%    \begin{macrocode}
+\clist_new:N \noload_clist
+\clist_set:Nn \noload_clist{}
+\clist_map_inline:Nn\l_tmpa_clist{\bool_new:c {@@_#1_bool}}
+\bool_new:N\@@_explplus_bool %extra expl packages
+
+
+\DeclareKeys[phd/pkgm]
+ {
+   all .bool_set:N             = \@@_all_bool, 
+   all .default:n                = true,
+   essential .bool_set:N       = \@@_essential_bool,
+   essential.default:n         = true,
+   math .bool_set:N            = \@@_math_bool,
+   math .default:n             = true,
+   typography .bool_set:N      = \@@_typography_bool,
+   typography .default:n       = true,
+   programming .bool_set:N     = \@@_programming_bool,
+   programming .default:n      = true,
+   tikz .bool_set:N            = \@@_tikz_bool,
+   tikz .default:n             = true,
+   chemistry .bool_set:N       = \@@_chemistry_bool,
+   chemistry .default:n        = true,
+   physics .bool_set:N         = \@@_physics_bool,
+   physics .default:n          = true,  
+   ancient .bool_set:N       = \@@_ancient_bool,
+   ancient .default:n        = true,
+   expl+ .bool_set:N         = \@@_explplus_bool,
+   expl+ .default:n          = true,
+   thesis .meta:nn         = {phd/pkgm}{chemistry=true},
+   exclude .code            = \clist_put_right:Nn\noload_clist{#1},
+  } 
+
+
+\keys_set:nn{phd/pkgm}
+  {
+    all=false,ancient=false,chemistry=false,essential,math,typography,programming,expl+   		  
+  }
+  
+\ProcessKeyOptions[phd/pkgm]
+\bool_if:NTF\@@_all_bool
+  {
+	\clist_map_inline:nn {phd-essential,phd-math,phd-typography,phd-programming,phd-tikz,phd-chemistry,phd-physics, phd-ancient,xparse,xtemplate,xcoffins,l3benchmark}{\RequirePackage{#1}}  	
+  }
+  {
+	\bool_if:NT\@@_essential_bool{\RequirePackage{phd-essential}}
+	\bool_if:NT\@@_math_bool{\RequirePackage{phd-math}}
+	\bool_if:NT\@@_typography_bool{\RequirePackage{phd-typography}}
+	\bool_if:NT\@@_programming_bool{ \RequirePackage{phd-programming} }
+	\bool_if:NT\@@_tikz_bool{\RequirePackage{phd-tikz}}
+	\bool_if:NT\@@_chemistry_bool{\RequirePackage{phd-chemistry}}
+	\bool_if:NT\@@_physics_bool{\RequirePackage{phd-physics}}
+	\bool_if:NT\@@_ancient_bool{\RequirePackage{phd-ancient}}
+	\bool_if:NT \@@_explplus_bool{\RequirePackage{xparse,xtemplate,xcoffins}}
+  }
+%    \end{macrocode} 
+% Before we load the individual packages, we check if they have been excluded.
+%  
+%    \begin{macrocode} 
+ %\clist_show:N\noload_clist  
+  \clist_map_inline:Nn\noload_clist{
+    \clist_remove_all:Nn\core_packages_clist{#1}
+  }
+  %\clist_show:N\core_packages_clist 
+  \clist_map_inline:Nn \core_packages_clist
+    {
+        \RequirePackage{#1}
+    }        
+%    \end{macrocode}
+%    \begin{macrocode}
+%
+%</package>
+%    \end{macrocode}
+% \section{Essential Packages}
+% % The internal package |phd-essential| provides a list of packages which I found
+% essential for a reasonably long book. 
+% This includes packages for tables \pkgname{booktabs}\Index{Packages:\levelchar booktabs},\textcite{booktabs}
+% \docPackage{tabularx}, \docPackage{longtable}, \docPackage{multirow},
+% \docPackage{array},\docPackage{colortbl},
+% \docPackage{phd-lorems}, \docPackage{lipsum}, \docPackage{kantlipsum},
+% \docPackage{blindtext}, \docPackage{xspace}, \docPackage{comment}
+%
+% \subsection{Graphics}
+% \docPackage{graphicx}  \docPackage{wrapfig}, \docPackage{rotating}, \docPackage{caption},
+% \docPackage{pdfscape}
+%    \begin{macrocode}
+%<*essential>
+\ProvidesExplPackage{phd-essential}{20/11/2023}{version1.0}{core libraries (YL)}
+\clist_new:N\core_packages_clist
+\clist_set:Nn \core_packages_clist{booktabs,tabularx,longtable,multirow,array,colortbl,threeparttable,dcolumn}
+\clist_put_right:Nn\core_packages_clist{lipsum,phd-lorems,kantlipsum,blindtext}
+\clist_put_right:Nn \core_packages_clist{calc,xspace,comment}
+\clist_put_right:Nn \core_packages_clist{graphicx,wrapfig,rotating,caption,subcaption,pdflscape,diagbox,textcase,capt-of,phd-epigraphs,varwidth,pifont,marvosym}
+\clist_put_right:Nn \core_packages_clist{framed}
+%\clist_map_inline:Nn \core_packages_clist{\RequirePackage{#1}}
+ \@ifundefined{c@step}{\newcounter{step}}{}
+ \newcommand\resetinc{\setcounter{step}{0}}
+ \newcommand\inc{\stepcounter{step}\thestep}
+% \RequirePackage{grfext}
+% \DeclareGraphicsExtensions{.jpg, .JPG, .jpeg, .JPEG, .eps, .pdf, .PDF, .png, .PNG}
+% \graphicspath{ {./images//} {./images-01//} {./graphics/}   {./images/cape//} {./images/rsa//} }
+   %\AppendGraphicsExtensions{.png}
+ %\PrintGraphicsExtensions
+%\PassOptionsToPackage{quiet}{rotating}
+%\RequirePackage{rotating}
+\RequirePackage{ragged2e}
+\RequirePackage{pict2e}
+\RequirePackage{picture}
+\PassOptionsToPackage{final}{pdfpages} %review the options
+ \PassOptionsToPackage{smaller,printonlyused,withpage}{acronym}
+    \RequirePackage{acronym}[2015/03/21]
+    %\RequirePackage{phd-abbreviations}
+     \RequirePackage{siunitx}           
+  \sisetup{fixed-exponent =0,
+           scientific-notation = false}   
+ \PassOptionsToPackage{np}{numprint}%
+ \RequirePackage{numprint}
+ \RequirePackage[super]{nth}
+%</essential>
+%    \end{macrocode}
+% \section{Programming}
+% Package that are commonly used by programmers. \docPackage{environ}, \docPackage{etoolbox}
+% \docPackage{parselines}, \docPackage{upquote}, \docPackage{alphalph}.
+%    \begin{macrocode}
+%<*programming>
+\ProvidesExplPackage{phd-programming}{2023/11/20}{version1}{Core packages programming}
+\RequirePackage{etoolbox}  
+\RequirePackage{environ}
+\RequirePackage{parselines}
+\RequirePackage{upquote}
+\RequirePackage{alphalph}
+%</programming>
+%    \end{macrocode}
+% \section{Tikz preloads}
+%    \begin{macrocode}
+%<*tikz>
+\ProvidesPackage{phd-tikz}[20/11/2023 version1[load tikz libraries]
+\makeatletter
+\RequirePackage{tikz}
+\usetikzlibrary{%       
+  arrows, %
+  calc,%
+  fit,%
+  patterns,%
+  plotmarks,%
+  shapes.geometric,%
+  shapes.misc,%
+  shapes.symbols,%
+  shapes.arrows,%
+  shapes.callouts,%
+  shapes.multipart,%
+  shapes.gates.logic.US,%
+  shapes.gates.logic.IEC,%
+  er,%
+  automata,%
+  backgrounds,%
+  chains,%
+  topaths,%
+  trees,%
+  petri,%
+  mindmap,%
+  matrix,%
+  calendar,%
+  folding,%
+  fadings,%
+  through,%
+  positioning,%
+  scopes,%
+  decorations.fractals,%
+  decorations.shapes,%
+  decorations.text,%
+  decorations.pathmorphing,%
+  decorations.pathreplacing,%
+  decorations.footprints,%
+  decorations.markings,%
+  shadows}
+ \usetikzlibrary{tikzmark} 
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+% pgfplots latest compatibility
+ \RequirePackage{pgfplots}
+ \pgfplotsset{compat=1.18}
+  \RequirePackage{pgfplotstable}
+ \RequirePackage{forest} 
+ \LoadPackageAll{drawstack} 
+ \usetikzlibrary{tikzmark} 
+%</tikz>
+%    \end{macrocode}
+%\section{Typography package}
+% This package loads the lettrine package etc.
+%    \begin{macrocode}
+%<*typography>
+\ProvidesExplPackage{phd-typography}{20/11/2023}{version1}{Core packages typography}
+\RequirePackage{soul}
+\sethlcolor{thehighlight}
+\RequirePackage{lettrine}
+\def\dropcap#1#2{\lettrine[lines=3, lraise=0.1, nindent=0em, slope=.1em]{#1}{#2}}
+%</typography>
+%    \end{macrocode}
+% ^^A\staveXXXV \staveVI
+%    \begin{macrocode}
+%<*ancient>
+\ProvidesExplPackage{phd-ancient}{20/11/2023}{version1}{Core packages ancient (YL)}
+\ExplSyntaxOn
+\cs_gset:Npn \MakePrivateLetters
+  {
+    \char_set_catcode_letter:N \@
+    \char_set_catcode_letter:N \_
+    \char_set_catcode_letter:N \:
+  }
+%    \end{macrocode}
+%    \begin{macrocode}
+\RequirePackage{staves}
+\LoadPackageAll{uncial}
+\LoadPackageAll{lineara}
+\LoadPackageAll{linearb}
+\LoadPackageAll{cypriot}  
+\LoadPackageAll{sarabian}  
+\LoadPackageAll{oldprsn}  
+\RequirePackage{hieroglf}
+\RequirePackage{ugarite}
+\RequirePackage{epiolmec}
+%</ancient>
+%    \end{macrocode}
+%    \begin{macrocode}
+%<*math>
+\ProvidesExplPackage{phd-math}{20/11/2023}{version1}{easy math setup (YL)}
+\clist_new:N \math_packages_clist
+\clist_set:Nn\math_packages_clist
+  {amsmath,amssymb,amsthm,amsopn,amscd,mathtools,xfrac,nicefrac,braket,stackrel,empheq}
+\clist_map_inline:Nn\math_packages_clist{\RequirePackage{#1}}
+\setcounter{MaxMatrixCols}{20}
+\newcommand*\widefbox[1]{\fbox{\hspace{1em}#1\hspace{1em}}}
+%</math>
+%    \end{macrocode}
+% \section{Chemistry packages}
+% \docPackage{mchem} is a very popular package for chemistry load it, if the option \opt{chemistry} is set.
+%    \begin{macrocode}
+%<*chemistry>
+\ProvidesExplPackage{phd-chemistry}{20/11/2023}{version1}{easy chemistry setup (YL)}
+\PassOptionsToPackage{version=4}{mhchem}
+\RequirePackage{mhchem}
+%</chemistry>
+%    \end{macrocode}
+% ^^A\[ \ab ( \frac12 ) \quad
+% ^^A\ab [ \frac12 ] \quad
+% ^^A\ab\{ \frac12 \} \]
+% \section{Physics and related packages}
+% the old physics package has been problematic over the years, use 
+% \docPackage{physics2} and laod with limited modules |ab|, |a.braket|. 
+% Best define your own shortcuts to suit your specialty.
+%    \begin{macrocode}
+%<*physics>
+ \ProvidesExplPackage{phd-physics}{20/11/2023}{version1}{easy physics setup (YL)}
+ % must come after amsmath it will load it if not present then works with modules.
+%<@@=>
+ \makeatletter
+ \RequirePackage{physics2}
+ \usephysicsmodule{ab,ab.braket}
+%</physics>
+%    \end{macrocode}
+%    \begin{macrocode}
+%<*package>
+\wlog{*******************************}
+\wlog{  END PHD-PKGMANAGER}
+\wlog{*******************************}
+%</package>
+\ExplSyntaxOff
+%    \end{macrocode}
+% \Finale
+\endinput

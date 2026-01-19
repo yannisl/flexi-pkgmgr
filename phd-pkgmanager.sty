@@ -1,0 +1,189 @@
+
+
+\NeedsTeXFormat{LaTeX2e}[2020/02/02]
+\ProvidesPackage{phd-pkgmanager}[2020/1/13 v1.0 less preamble (YL)]%
+\ExplSyntaxOn
+\cs_gset:Npn \MakePrivateLetters
+  {
+    \char_set_catcode_letter:N \@
+    \char_set_catcode_letter:N \_
+    \char_set_catcode_letter:N \:
+  }
+  \MakePrivateLetters
+\def\FIRE{Fire}
+
+%% typeset the first argument the macro names
+
+\cs_set_eq:NN \savesymbol\save_symbol:
+\ExplSyntaxOff
+
+\ExplSyntaxOn
+\cs_new:Npn \restore_symbol: #1 #2
+  {
+    \cs_gset_eq:cc {#1#2} {#2}
+    \cs_gset_eq:cc {#2} {orig#2}
+ }
+\ExplSyntaxOff
+
+\newcommand*{\renamerobustsymbol}[2]{%
+  \expandafter\let\expandafter\origrealcommand
+    \csname #2\space\endcsname
+    \expandafter\global\expandafter\let\csname#1#2\endcsname=\origrealcommand
+}
+\def\ifnotsavedsym@helper#1#2!{\expandafter\ifx\csname orig#2\endcsname\relax}
+\newcommand*{\ifnotsavedsym}[1]{%
+  \expandafter\ifnotsavedsym@helper\string#1!%
+}
+
+\newif\ifcomplete
+\ExplSyntaxOn
+\clist_new:N \g_phd_packages_loaded_clist:n
+\clist_new:N \g_phd_packages_not_found:n
+\newif\ifloadpackages
+\loadpackagestrue
+
+\newcommand{\missingpkgs}{}
+\newcommand{\foundpkgs}{}
+
+
+\NewDocumentCommand\ifstylefileexists {s m m m } {
+  \IfBooleanTF #1
+    {\ifstylefileexists_star {#2}{#3}{#4} }
+    {\ifstylefileexists_aux {#2}{#3}{#4}}
+}
+\cs_new:Npn \ifstylefileexists_star #1 #2 #3 {
+\ifloadpackages
+\file_if_exist:nTF {#1}
+  {
+    \exp_after:w \ifx\csname ver@#1.sty\endcsname\relax
+            \PackageInfo{phd-pkgmanager}{package~#1~loaded.}
+    \else
+      \PackageInfo{phd-pkgmanager}{package~#1~already~loaded.}
+    \fi
+     \clist_gput_right:Nn \g_phd_packages_loaded_clist:n {#1}
+     #2
+  }
+  {
+    #3
+    \clist_gput_right:Nn \g_phd_packages_not_found:n {#1}
+    \PackageInfo{phd-pkgmanager}{package~#1~not~found.}
+  }
+\fi
+}
+
+\cs_new:Npn \ifstylefileexists_aux #1 #2 #3 {
+
+\file_if_exist:nTF {#1.sty}
+  {
+
+\if_meaning:w \ver@#1.sty\relax
+
+       \clist_gput_right:Nn \g_phd_packages_loaded_clist:n {#1}
+      \PackageInfo{phd-pkgmanager}{package~#1~not~loaded.}
+
+      \else:
+
+      \PackageInfo{phd-pkgmanager}{package~#1~already~loaded.}
+       #2
+     \fi:
+  }
+  {
+   #3
+    \clist_gput_right:Nn \g_phd_packages_not_found:n {#1}
+    \PackageInfo{phd-pkgmanager}{package~#1~not~found.}
+  }
+
+}
+\NewDocumentCommand\LoadPackageAll { o m } {
+  \bool_if_exist:cTF{#2_bool}
+  {  }
+  {\bool_new:c {#2_bool}
+   \cs_new:cpn {#2_name} {\pkg{#2}}
+   \ifstylefileexists{#2}
+       {\bool_gset_true:c {#2_bool}
+         \IfValueTF
+           {\PassOptionsToPackage
+            \RequirePackage{#2}
+            }{\RequirePackage{#2}}
+       }
+       {error cannot be loaded
+        \bool_gset_false:c {#2_bool}
+       }
+  }
+}
+\ExplSyntaxOff
+\newcommand\Symbols{\flushleft}
+\def\endSymbols{\endflushleft}
+\def\dosymbol#1{%
+   \leavevmode\hbox to .33\textwidth{%
+    \hbox to 1.2em%
+    {\hss$#1$\hfil}%
+   \footnotesize\texttt{\string#1}\hss}%
+   \penalty10}
+\ExplSyntaxOn
+\clist_set:Nn \l_tmpa_clist{all,essential,math,typography,programming,tikz,chemistry,physics}
+\clist_new:N \noload_clist
+\clist_set:Nn \noload_clist{}
+\clist_map_inline:Nn\l_tmpa_clist{\bool_new:c {__phd_#1_bool}}
+\bool_new:N\__phd_explplus_bool %extra expl packages
+
+\DeclareKeys[phd/pkgm]
+ {
+   all .bool_set:N             = \__phd_all_bool,
+   all .default:n                = true,
+   essential .bool_set:N       = \__phd_essential_bool,
+   essential.default:n         = true,
+   math .bool_set:N            = \__phd_math_bool,
+   math .default:n             = true,
+   typography .bool_set:N      = \__phd_typography_bool,
+   typography .default:n       = true,
+   programming .bool_set:N     = \__phd_programming_bool,
+   programming .default:n      = true,
+   tikz .bool_set:N            = \__phd_tikz_bool,
+   tikz .default:n             = true,
+   chemistry .bool_set:N       = \__phd_chemistry_bool,
+   chemistry .default:n        = true,
+   physics .bool_set:N         = \__phd_physics_bool,
+   physics .default:n          = true,
+   ancient .bool_set:N       = \__phd_ancient_bool,
+   ancient .default:n        = true,
+   expl+ .bool_set:N         = \__phd_explplus_bool,
+   expl+ .default:n          = true,
+   thesis .meta:nn         = {phd/pkgm}{chemistry=true},
+   exclude .code            = \clist_put_right:Nn\noload_clist{#1},
+  }
+
+\keys_set:nn{phd/pkgm}
+  {
+    all=false,ancient=false,chemistry=false,essential,math,typography,programming,expl+    
+  }
+
+\ProcessKeyOptions[phd/pkgm]
+\bool_if:NTF\__phd_all_bool
+  {
+\clist_map_inline:nn {phd-essential,phd-math,phd-typography,phd-programming,phd-tikz,phd-chemistry,phd-physics, phd-ancient,xparse,xtemplate,xcoffins,l3benchmark}{\RequirePackage{#1}}   
+  }
+  {
+\bool_if:NT\__phd_essential_bool{\RequirePackage{phd-essential}}
+\bool_if:NT\__phd_math_bool{\RequirePackage{phd-math}}
+\bool_if:NT\__phd_typography_bool{\RequirePackage{phd-typography}}
+\bool_if:NT\__phd_programming_bool{ \RequirePackage{phd-programming} }
+\bool_if:NT\__phd_tikz_bool{\RequirePackage{phd-tikz}}
+\bool_if:NT\__phd_chemistry_bool{\RequirePackage{phd-chemistry}}
+\bool_if:NT\__phd_physics_bool{\RequirePackage{phd-physics}}
+\bool_if:NT\__phd_ancient_bool{\RequirePackage{phd-ancient}}
+\bool_if:NT \__phd_explplus_bool{\RequirePackage{xparse,xtemplate,xcoffins}}
+  }
+ %\clist_show:N\noload_clist
+  \clist_map_inline:Nn\noload_clist{
+    \clist_remove_all:Nn\core_packages_clist{#1}
+  }
+  %\clist_show:N\core_packages_clist
+  \clist_map_inline:Nn \core_packages_clist
+    {
+        \RequirePackage{#1}
+    }
+\wlog{*******************************}
+\wlog{  END PHD-PKGMANAGER}
+\wlog{*******************************}
+\ExplSyntaxOff

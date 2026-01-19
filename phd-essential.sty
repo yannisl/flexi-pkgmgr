@@ -1,0 +1,29 @@
+
+
+\NeedsTeXFormat{LaTeX2e}[2020/02/02]
+\ProvidesExplPackage{phd-essential}{20/11/2023}{version1.0}{core libraries (YL)}
+\clist_new:N\core_packages_clist
+\clist_set:Nn \core_packages_clist{booktabs,tabularx,longtable,multirow,array,colortbl,threeparttable,dcolumn}
+\clist_put_right:Nn\core_packages_clist{lipsum,phd-lorems,kantlipsum,blindtext}
+\clist_put_right:Nn \core_packages_clist{calc,xspace,comment}
+\clist_put_right:Nn \core_packages_clist{graphicx,wrapfig,rotating,caption,subcaption,pdflscape,diagbox,textcase,capt-of,phd-epigraphs,varwidth,pifont,marvosym}
+\clist_put_right:Nn \core_packages_clist{framed}
+ \@ifundefined{c@step}{\newcounter{step}}{}
+ \newcommand\resetinc{\setcounter{step}{0}}
+ \newcommand\inc{\stepcounter{step}\thestep}
+   %\AppendGraphicsExtensions{.png}
+ %\PrintGraphicsExtensions
+\RequirePackage{ragged2e}
+\RequirePackage{pict2e}
+\RequirePackage{picture}
+\PassOptionsToPackage{final}{pdfpages} %review the options
+ \PassOptionsToPackage{smaller,printonlyused,withpage}{acronym}
+    \RequirePackage{acronym}[2015/03/21]
+    %\RequirePackage{phd-abbreviations}
+     \RequirePackage{siunitx}
+  \sisetup{fixed-exponent =0,
+           scientific-notation = false}
+ \PassOptionsToPackage{np}{numprint}%
+ \RequirePackage{numprint}
+ \RequirePackage[super]{nth}
+\ExplSyntaxOff

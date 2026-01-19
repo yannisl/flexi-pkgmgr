@@ -1,0 +1,42 @@
+# LaTeX temporary files
+*.aux
+*.log
+*.toc
+*.lof
+*.lot
+*.out
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.synctex.gz
+*.synctex.gz(busy)
+*.nav
+*.snm
+*.vrb
+*.run.xml
+*.bcf
+*.xdv
+*.thm
+*.brf
+*.listing
+*.lol
+*.hd
+*.out
+*.idx
+*.glo
+*.tcbtemp
+
+# Image directories (exclude all files inside)
+**/images/**
+**/images-01/**
+**/graphics/**
+
+# Exclude ALL pdf files
+*.pdf
+
+# Include pdf files in image and graphics directories
+!**/images/**/*.pdf
+!**/graphics/**/*.pdf
+
+
